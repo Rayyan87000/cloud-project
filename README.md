@@ -1,97 +1,191 @@
 # 🚀 Real-Time Collaborative Code Editor
 
-A production-ready **Real-Time Collaborative Code Editor** built with **React, Express.js, Socket.IO, Yjs, Docker, and AWS ECS Fargate**.
+A production-ready **Real-Time Collaborative Code Editor** built using **React.js, Express.js, Socket.IO, Yjs, Docker, and AWS ECS Fargate**.
 
-This application allows multiple users to edit code simultaneously with real-time synchronization. The project demonstrates modern full-stack development, containerization using Docker, and cloud deployment on AWS.
-
----
-
-## 📖 About the Project
-
-This project was developed to understand how real-time collaborative applications work and how to deploy a containerized application on AWS.
-
-Users can join the editor using a username and instantly collaborate with other connected users. Every code change is synchronized in real time using WebSockets.
-
-The complete application is packaged using Docker and deployed on **Amazon ECS Fargate** behind an **Application Load Balancer (ALB)**.
+This application enables multiple users to collaborate on the same code editor in real time. The project demonstrates modern full-stack web development, Docker containerization, and cloud deployment using Amazon Web Services (AWS).
 
 ---
 
-## ✨ Features
+# 🌐 Live Demo
 
-- 🚀 Real-time collaborative code editing
-- 👥 Multi-user synchronization
-- 💻 Monaco Editor (VS Code Editor)
-- ⚡ Socket.IO based communication
-- 🔄 Yjs document synchronization
-- 🐳 Dockerized application
-- ☁️ AWS ECS Fargate deployment
+### 🔗 Live Application
+
+**http://docker-aws-yt-ALB-1300292554.ap-south-1.elb.amazonaws.com**
+
+> ✅ Hosted on **Amazon ECS Fargate**
+>
+> ✅ Exposed using **Application Load Balancer (ALB)**
+
+---
+
+# 📌 Project Overview
+
+This project was built to understand how real-time collaborative applications work and how to deploy a containerized application on AWS Cloud.
+
+Users can join the application with a username and edit code simultaneously. Every code change is synchronized instantly across all connected users using **Socket.IO** and **Yjs**.
+
+The complete application is containerized using **Docker**, stored in **Amazon ECR**, and deployed on **Amazon ECS Fargate** behind an **Application Load Balancer**.
+
+---
+
+# ✨ Features
+
+- 🚀 Real-Time Collaborative Code Editing
+- 👥 Multi-user Collaboration
+- ⚡ Instant Synchronization using Socket.IO
+- 📝 Monaco Editor (VS Code Editor)
+- 🔄 Yjs CRDT Synchronization
+- 🐳 Docker Containerization
+- ☁️ AWS Cloud Deployment
 - 🌐 Application Load Balancer
-- ❤️ Health check endpoint for monitoring
+- ❤️ Health Check Endpoint
+- 📦 Production Ready Deployment
 
 ---
 
 # 🛠 Tech Stack
 
-### Frontend
+## Frontend
 
 - React.js
 - Vite
 - Monaco Editor
 - Socket.IO Client
 
-### Backend
+## Backend
 
 - Node.js
 - Express.js
 - Socket.IO
 - Yjs
 
-### Cloud & DevOps
+## Cloud & DevOps
 
 - Docker
-- Amazon ECR
-- Amazon ECS (Fargate)
-- Application Load Balancer
+- Amazon Elastic Container Registry (ECR)
+- Amazon Elastic Container Service (ECS Fargate)
+- Application Load Balancer (ALB)
+- Target Group
 - IAM
 - VPC
-- Target Group
 - CloudWatch
 
 ---
 
-# 🏗 Architecture
+# 🏗 System Architecture
 
+```text
+                    User
+
+                      │
+
+              Web Browser
+
+                      │
+
+                      ▼
+
+     Application Load Balancer (ALB)
+
+                      │
+
+                      ▼
+
+       Amazon ECS Service (Fargate)
+
+                      │
+
+                      ▼
+
+          Docker Container
+
+        ┌─────────────┴─────────────┐
+
+        ▼                           ▼
+
+ React Frontend             Express Backend
+
+                                    │
+
+                                    ▼
+
+                              Socket.IO Server
+
+                                    │
+
+                                    ▼
+
+                                   Yjs
+
+                                    │
+
+                     Real-Time Synchronization
 ```
-                 User Browser
-                      │
-                      ▼
-      Application Load Balancer (ALB)
-                      │
-                      ▼
-         Amazon ECS Service (Fargate)
-                      │
-              Docker Container
-          ┌───────────┴───────────┐
-          ▼                       ▼
-     React Frontend        Express + Socket.IO
-                                  │
-                                  ▼
-                                Yjs
-                                  │
-                    Real-Time Collaboration
+
+---
+
+# 🚀 Deployment Workflow
+
+```text
+VS Code
+
+↓
+
+React Application
+
+↓
+
+npm run build
+
+↓
+
+Frontend/dist
+
+↓
+
+Backend/public
+
+↓
+
+Docker Build
+
+↓
+
+Docker Image
+
+↓
+
+Amazon ECR
+
+↓
+
+Amazon ECS (Fargate)
+
+↓
+
+Target Group
+
+↓
+
+Application Load Balancer
+
+↓
+
+Live Application
 ```
 
 ---
 
 # 📂 Project Structure
 
-```
+```text
 docker-aws
 │
 ├── Frontend
 │   ├── src
 │   ├── public
-│   └── package.json
+│   ├── package.json
+│   └── vite.config.js
 │
 ├── Backend
 │   ├── public
@@ -99,6 +193,7 @@ docker-aws
 │   └── package.json
 │
 ├── Dockerfile
+├── .dockerignore
 └── README.md
 ```
 
@@ -106,45 +201,51 @@ docker-aws
 
 # ⚙️ Local Setup
 
-### Clone the Repository
+### Clone Repository
 
 ```bash
 git clone https://github.com/Rayyan87000/docker-aws-project.git
 ```
 
-### Install Frontend Dependencies
+Move into project
+
+```bash
+cd docker-aws-project
+```
+
+Install Frontend Dependencies
 
 ```bash
 cd Frontend
 npm install
 ```
 
-### Build Frontend
+Build Frontend
 
 ```bash
 npm run build
 ```
 
-Copy the generated **dist** folder into:
+Copy the generated **dist** folder into
 
 ```
 Backend/public
 ```
 
-### Install Backend Dependencies
+Install Backend Dependencies
 
 ```bash
 cd ../Backend
 npm install
 ```
 
-### Run the Application
+Run Backend
 
 ```bash
 node server.js
 ```
 
-Open:
+Open
 
 ```
 http://localhost:3000
@@ -154,13 +255,13 @@ http://localhost:3000
 
 # 🐳 Docker
 
-### Build Docker Image
+Build Docker Image
 
 ```bash
 docker build -t docker-aws/server .
 ```
 
-### Run Docker Container
+Run Docker Container
 
 ```bash
 docker run -p 3000:3000 docker-aws/server
@@ -168,67 +269,91 @@ docker run -p 3000:3000 docker-aws/server
 
 ---
 
-# ☁️ AWS Deployment
+# ☁ AWS Deployment
 
-The application is deployed using:
+The application is deployed using the following AWS services:
 
 - Amazon Elastic Container Registry (ECR)
 - Amazon ECS Fargate
-- Application Load Balancer
+- Application Load Balancer (ALB)
 - Target Group
 - IAM Roles
-- VPC Networking
+- VPC
+- Public Subnets
+- Security Groups
+- CloudWatch Logs
 
-Deployment Workflow
+Deployment Process
 
 ```
-Source Code
-      │
-      ▼
-Docker Build
-      │
-      ▼
+Local Development
+
+↓
+
 Docker Image
-      │
-      ▼
+
+↓
+
 Amazon ECR
-      │
-      ▼
-Amazon ECS (Fargate)
-      │
-      ▼
+
+↓
+
+Amazon ECS Fargate
+
+↓
+
 Application Load Balancer
-      │
-      ▼
-Live Application
+
+↓
+
+Public URL
+
+↓
+
+Users
 ```
 
 ---
 
-# 📈 Skills Demonstrated
+# 💡 Skills Demonstrated
 
 - Full Stack Web Development
-- Real-Time Communication
-- WebSocket Programming
+- Real-Time Web Applications
+- WebSocket Communication
 - Docker Containerization
 - Multi-Stage Docker Build
 - AWS ECS Fargate Deployment
 - Amazon ECR
-- Load Balancing
-- Cloud Networking
-- Health Monitoring
+- Application Load Balancer
+- VPC Networking
+- Health Check Configuration
 - Git & GitHub
+- Cloud Deployment
+- DevOps Fundamentals
 
 ---
 
-# 🚀 Future Enhancements
+# 📈 Future Improvements
 
-- Authentication & Authorization
+- User Authentication (JWT/OAuth)
 - Multiple Collaboration Rooms
-- Persistent Database
 - Code Execution
-- Integrated Chat
+- Integrated Chat System
+- Persistent Database
+- File Explorer
+- HTTPS using ACM
+- Custom Domain using Route 53
 - CI/CD Pipeline using GitHub Actions
+
+---
+
+# 📸 Screenshots
+
+You can add screenshots here:
+
+- Home Page
+- Multiple Users Editing Simultaneously
+- AWS ECS Deployment Dashboard
 
 ---
 
@@ -236,12 +361,20 @@ Live Application
 
 **Rayyan Kaif Ansari**
 
-**B.Tech Computer Science Engineering**
+B.Tech Computer Science Engineering
 
 Java Backend Developer | Cloud Computing Enthusiast
 
-GitHub: **https://github.com/Rayyan87000**
+GitHub:
+https://github.com/Rayyan87000
+
+LinkedIn:
+(Add your LinkedIn profile here)
 
 ---
 
-### ⭐ If you found this project interesting, consider giving it a Star.
+## ⭐ Support
+
+If you found this project useful, consider giving it a **⭐ Star** on GitHub.
+
+It motivates me to build more cloud and full-stack projects.
